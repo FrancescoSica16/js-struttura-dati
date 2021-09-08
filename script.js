@@ -53,6 +53,8 @@ var card = {
     //immagine della carta completa
     cardImage : "https://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=262136&type=card",
 
+    version : ["goldenrod", "black", "iridescent"],
+
     convertedManaCost :
     function () {
         let sum = 0;
@@ -66,14 +68,40 @@ var card = {
 console.table(card);
 console.log(card.convertedManaCost());
 
-let cardDisplayHTML = 
+let abilitiesHTMLContent = "<strong>No abilities avaiable</strong>";
+if(card.abilities.length){
+    abilitiesHTMLContent ='<ul class="card-abilities">'; 
+    for (let i = 0; i < card.abilities.length; i++) {
+        const currentAbility = card.abilities[i];
+        abilitiesHTMLContent += "----------------";
+        abilitiesHTMLContent += `"<li>Description: ${currentAbility.description}</li>"`;
+        
+        abilitiesHTMLContent += `<li>Specific launch cost: 
+                                    <ul class="mana-cost">
+                                        <li>Common cost: ${currentAbility.manaCost.common}</li>
+                                        <li>white cost: ${currentAbility.manaCost.white}</li>
+                                        <li>ublue cost: ${currentAbility.manaCost.ublue}</li>
+                                        <li>black cost: ${currentAbility.manaCost.black}</li>
+                                        <li>red cost: ${currentAbility.manaCost.red}</li>
+                                        <li>green cost: ${currentAbility.manaCost.green}</li>    
+                                    </ul>
+                                </li>`
+        abilitiesHTMLContent += "----------------";
+    }
+    abilitiesHTMLContent += "</ul>";
+} // if(abilities.length > 0)
 
+let cardDisplayHTML = 
 `<ul  class = "card-element">
 
-<li> </li>
 <li>Name: ${card.name} </li>
 
-<li>Launch combined cost: ${card.convertedManaCost()}
+<li>Launch combined cost: ${card.convertedManaCost()}</li>
+
+<li>costitution: ${card.constitution} </li>
+<li>strenght: ${card.strength} </li>
+
+<li>Specific launch cost: 
     <ul class="mana-cost">
         <li>Common cost: ${card.manaCost.common}</li>
         <li>white cost: ${card.manaCost.white}</li>
@@ -83,8 +111,6 @@ let cardDisplayHTML =
         <li>green cost: ${card.manaCost.green}</li>    
     </ul>
 </li>
-
-<li>Specific launch cost: ${card.manaCost} </li>
 <li>Card type: ${card.cardType} ${card.subType}</li>
 
 <li>Expansion: 
@@ -95,9 +121,19 @@ let cardDisplayHTML =
     </ul>
 </li>
 
-<li> </li>
-<li> </li>
+<li>Collection numbers: ${card.collectionNumber}/${card.expansion.maximumNumber} </li>
 
+<li>Flavor text: <em>${card.flavourText.quote}</em> -by ${card.flavourText.author}</li>
+
+<li>Abilità:${abilitiesHTMLContent}</li>
+
+<li>Illustration info:  
+        ${card.illustrator.name} ${card.surname}
+</li>
+
+<li>Border color: ${card.borderHue}</li>
+
+<li>Version: ${card.version.join(" ")}</li>
 </ul>`
 
 document.getElementById("deck").innerHTML += cardDisplayHTML;
