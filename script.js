@@ -1,5 +1,5 @@
 var card = {
-
+    
     name : "Troll Ascetic",
     manaCost : {
         common: 1,
@@ -15,6 +15,7 @@ var card = {
         expansionID : 9,
         name : "The Gathering-Commander",
         rarity : "Rare",
+        other: "",
         maximumNumber: 350, 
     },
     collectionNumber: 176,
@@ -65,3 +66,38 @@ var card = {
 console.table(card);
 console.log(card.convertedManaCost());
 
+let cardDisplayHTML = 
+
+`<ul  class = "card-element">
+
+<li> </li>
+<li>Name: ${card.name} </li>
+
+<li>Launch combined cost: ${card.convertedManaCost()}
+    <ul class="mana-cost">
+        <li>Common cost: ${card.manaCost.common}</li>
+        <li>white cost: ${card.manaCost.white}</li>
+        <li>ublue cost: ${card.manaCost.ublue}</li>
+        <li>black cost: ${card.manaCost.black}</li>
+        <li>red cost: ${card.manaCost.red}</li>
+        <li>green cost: ${card.manaCost.green}</li>    
+    </ul>
+</li>
+
+<li>Specific launch cost: ${card.manaCost} </li>
+<li>Card type: ${card.cardType} ${card.subType}</li>
+
+<li>Expansion: 
+    <ul class="expansion-list">
+        <li>Name: ${card.expansion.name}</li>
+        <li>Rarity: ${card.expansion["rarity"]}  ${card.expansion["other"]} </li>
+        <li>Numbers of cards: ${card.expansion.maximumNumber}</li>
+    </ul>
+</li>
+
+<li> </li>
+<li> </li>
+
+</ul>`
+
+document.getElementById("deck").innerHTML += cardDisplayHTML;
